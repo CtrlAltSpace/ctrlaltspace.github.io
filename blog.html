@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Blog page with thoughtful notes on design, development, and building better digital experiences."
+    />
+    <title>Blog | CtrlAltSpace Productions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+      <nav class="nav container" aria-label="Primary navigation">
+        <a class="brand" href="index.html">CtrlAltSpace</a>
+        <div class="nav-links">
+          <a href="index.html#home">Home</a>
+          <a href="index.html#about">About</a>
+          <a href="index.html#projects">Projects</a>
+          <a href="index.html#contact">Contact</a>
+          <a href="blog.html" class="active">Blog</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="section blog-hero">
+        <div class="container reveal">
+          <button class="back-button blog-back-button" id="blog-back-button" type="button" hidden>
+            Back to all posts
+          </button>
+          <p class="eyebrow">Blog</p>
+          <h1 id="blog-title">Blog posts.</h1>
+          <p class="post-meta blog-hero-meta" id="blog-hero-meta" hidden></p>
+          <div class="blog-divider" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container blog-grid reveal">
+          <div class="blog-main">
+            <div id="featured-post-container"></div>
+            <div class="posts-list" id="posts-list"></div>
+            <nav class="blog-pagination" id="blog-pagination" aria-label="Blog pages"></nav>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <p>&copy; <span id="year"></span> CtrlAltSpace. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
