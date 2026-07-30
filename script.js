@@ -101,7 +101,7 @@ function getPostSlug(post, index) {
   return post.slug || createSlug(post.title, index);
 }
 
-function getPreview(body, maxLength = 180) {
+function getPreview(body, maxLength = 140) {
   const plainText = String(body || '').replace(/\s+/g, ' ').trim();
 
   if (plainText.length <= maxLength) return plainText;
@@ -176,7 +176,7 @@ function renderPostList(posts) {
               <a class="post-link" href="blog.html?post=${slug}">
                 <p class="post-meta">${escapeHtml(post.date)} &bull; ${escapeHtml(post.time)}</p>
                 <h2>${escapeHtml(post.title)}</h2>
-                <p>${escapeHtml(getPreview(post.body))}</p>
+                <p class="post-preview">${escapeHtml(getPreview(post.body))}</p>
                 <span class="read-more">Read full post</span>
               </a>
             </article>
