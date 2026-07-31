@@ -4,41 +4,9 @@ if (year) {
 }
 
 const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
-const sections = Array.from(document.querySelectorAll('main section[id]'));
-const isBlogPage = window.location.pathname.includes('blog.html');
-
-const setActiveLink = (id) => {
-  navLinks.forEach((link) => {
-    const href = link.getAttribute('href');
-    const isHomeLink = href === '#home' || href === 'index.html#home';
-    const isBlogLink = href === 'blog.html';
-    const matches =
-      (isHomeLink && id === 'home') ||
-      (href && href.includes(id)) ||
-      (isBlogLink && isBlogPage);
-    link.classList.toggle('active', matches);
-  });
-};
-
-if (!isBlogPage) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          setActiveLink(id);
-        }
-      });
-    },
-    {
-      threshold: 0.35,
-    }
-  );
-
-  sections.forEach((section) => observer.observe(section));
-} else {
-  setActiveLink('blog');
-}
+navLinks.forEach((link) => {
+  link.classList.toggle('active', link.dataset.page === 'blog');
+});
 
 const revealItems = document.querySelectorAll('.reveal');
 const revealObserver = new IntersectionObserver(
@@ -56,17 +24,6 @@ const revealObserver = new IntersectionObserver(
 );
 
 revealItems.forEach((item) => revealObserver.observe(item));
-
-const navToggle = document.querySelector('.nav-toggle');
-const navMenu = document.querySelector('.nav-links');
-
-if (navToggle && navMenu) {
-  navToggle.addEventListener('click', () => {
-    const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-    navToggle.setAttribute('aria-expanded', String(!expanded));
-    navMenu.style.display = expanded ? 'none' : 'flex';
-  });
-}
 
 const blogSearch = document.getElementById('blog-search');
 const featuredPostContainer = document.getElementById('featured-post-container');
@@ -146,7 +103,7 @@ function renderPagination(totalPages, currentPage) {
     return `
       <a
         class="page-link${isCurrent ? ' active' : ''}"
-        href="blog.html?page=${page}"
+        href="index.html?page=${page}"
         ${isCurrent ? 'aria-current="page"' : ''}
       >${page}</a>
     `;
@@ -173,7 +130,7 @@ function renderPostList(posts) {
 
           return `
             <article class="post-card">
-              <a class="post-link" href="blog.html?post=${slug}">
+              <a class="post-link" href="index.html?post=${slug}">
                 <p class="post-meta">${escapeHtml(post.date)} &bull; ${escapeHtml(post.time)}</p>
                 <h2>${escapeHtml(post.title)}</h2>
                 <p class="post-preview">${escapeHtml(getPreview(post.body))}</p>
@@ -217,14 +174,14 @@ function renderFullPost(posts) {
 
 if (blogBackButton) {
   blogBackButton.addEventListener('click', () => {
-    window.location.href = 'blog.html';
+    window.location.href = 'index.html';
   });
 }
 
 function renderPosts() {
   if (!featuredPostContainer || !postsList) return;
 
-  fetch('posts.json')
+  fetch('../posts.json')
     .then((response) => response.json())
     .then((posts) => {
       allPosts = Array.isArray(posts)
