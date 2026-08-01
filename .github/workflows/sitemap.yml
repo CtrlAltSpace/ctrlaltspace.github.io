@@ -1,0 +1,138 @@
+name: Generate sitemap
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "posts.json"
+      - "blog/**"
+      - ".github/workflows/sitemap.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-sitemap:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Generate sitemap.xml
+        env:
+          SITE_URL: "https://ctrlaltspace.github.io"
+        run: |
+          python - <<'PY'
+          import json
+          import re
+          import os
+          import subprocess
+          from datetime import date, datetime
+          from pathlib import Path
+          from xml.sax.saxutils import escape
+
+          site_url = os.environ["SITE_URL"].rstrip("/")
+          fallback_date = date.today().isoformat()
+
+          posts_path = Path("posts.json")
+          posts = json.loads(posts_path.read_text(encoding="utf-8")) if posts_path.exists() else []
+
+          def slugify(title, index):
+              slug = re.sub(r"[^a-z0-9]+", "-", str(title or "").lower().strip())
+              slug = slug.strip("-")
+              return f"{slug}-{index + 1}" if slug else f"post-{index + 1}"
+
+          def post_lastmod(post):
+              # Keep sitemap generation dependency-free. If a date cannot be parsed,
+              # use the fallback date so search engines still get a valid ISO date.
+              raw_date = str(post.get("date", "")).strip()
+              for date_format in ("%B %d, %Y", "%b %d, %Y", "%Y-%m-%d"):
+                  try:
+                      return datetime.strptime(raw_date, date_format).date().isoformat()
+                  except ValueError:
+                      pass
+
+              try:
+                  from email.utils import parsedate_to_datetime
+                  return parsedate_to_datetime(raw_date).date().isoformat()
+              except Exception:
+                  return fallback_date
+
+          def git_lastmod(*paths):
+              dates = []
+              for path in paths:
+                  try:
+                      result = subprocess.run(
+                          ["git", "log", "-1", "--format=%cs", "--", path],
+                          check=True,
+                          capture_output=True,
+                          text=True,
+                      )
+                      value = result.stdout.strip()
+                      if value:
+                          dates.append(value)
+                  except subprocess.CalledProcessError:
+                      pass
+
+              return max(dates) if dates else fallback_date
+
+          urls = [
+              {
+                  "loc": f"{site_url}/",
+                  "lastmod": git_lastmod("index.html"),
+                  "changefreq": "monthly",
+                  "priority": "1.0",
+              },
+              {
+                  "loc": f"{site_url}/blog/",
+                  "lastmod": git_lastmod("blog/index.html", "posts.json"),
+                  "changefreq": "weekly",
+                  "priority": "0.8",
+              },
+          ]
+
+          for index, post in enumerate(posts):
+              slug = post.get("slug") or slugify(post.get("title"), index)
+              urls.append(
+                  {
+                      "loc": f"{site_url}/blog/?post={slug}",
+                      "lastmod": post_lastmod(post),
+                      "changefreq": "monthly",
+                      "priority": "0.6",
+                  }
+              )
+
+          lines = [
+              '<?xml version="1.0" encoding="UTF-8"?>',
+              '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+          ]
+
+          for url in urls:
+              lines.extend(
+                  [
+                      "  <url>",
+                      f"    <loc>{escape(url['loc'])}</loc>",
+                      f"    <lastmod>{url['lastmod']}</lastmod>",
+                      f"    <changefreq>{url['changefreq']}</changefreq>",
+                      f"    <priority>{url['priority']}</priority>",
+                      "  </url>",
+                  ]
+              )
+
+          lines.append("</urlset>")
+          Path("sitemap.xml").write_text("\n".join(lines) + "\n", encoding="utf-8")
+          PY
+
+      - name: Commit sitemap changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update sitemap"
+          file_pattern: sitemap.xml
