@@ -473,8 +473,10 @@ h3 {
 }
 
 .footer-links {
+  margin-left: auto;
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.7rem;
 }
 
 .blog-hero {
