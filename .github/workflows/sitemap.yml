@@ -95,7 +95,7 @@ jobs:
                   "loc": f"{site_url}/blog/",
                   "lastmod": git_lastmod("blog/index.html", "posts.json"),
                   "changefreq": "weekly",
-                  "priority": "0.8",
+                  "priority": "0.5",
               },
           ]
 
@@ -105,8 +105,8 @@ jobs:
                   {
                       "loc": f"{site_url}/blog/?post={slug}",
                       "lastmod": post_lastmod(post),
-                      "changefreq": "monthly",
-                      "priority": "0.6",
+                      "changefreq": "never",
+                      "priority": "0.3",
                   }
               )
 
