@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ctrlaltspace.github.io/sitemap.xml
+Sitemap: https://ctrlaltspace.is-a.dev/sitemap.xml

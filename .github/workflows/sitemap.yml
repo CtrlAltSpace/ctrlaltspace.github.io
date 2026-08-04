@@ -28,7 +28,7 @@ jobs:
 
       - name: Generate sitemap.xml
         env:
-          SITE_URL: "https://ctrlaltspace.github.io"
+          SITE_URL: "https://ctrlaltspace.is-a.dev"
         run: |
           python - <<'PY'
           import json
