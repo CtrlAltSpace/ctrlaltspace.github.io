@@ -88,13 +88,13 @@ jobs:
               {
                   "loc": f"{site_url}/",
                   "lastmod": git_lastmod("index.html"),
-                  "changefreq": "monthly",
+                  "changefreq": "yearly",
                   "priority": "1.0",
               },
               {
                   "loc": f"{site_url}/blog/",
                   "lastmod": git_lastmod("blog/index.html", "posts.json"),
-                  "changefreq": "weekly",
+                  "changefreq": "monthly",
                   "priority": "0.5",
               },
           ]
