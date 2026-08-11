@@ -183,15 +183,17 @@ if (terminalRoot) {
     createDir('/home/guest/projects/website');
     createDir('/home/guest/blog');
     createDir('/home/guest/docs');
-    createFile('/home/guest/README.md', 'Welcome to CtrlAltSpace.\nThis portfolio is powered by curiosity, creativity, and a little bit of mischief.\n');
+    createFile('/home/guest/README.md', 'CtrlAltSpace Productions creates desktop applications, web projects, and silly stuff driven by creativity and curiosity.\n');
     createFile('/home/guest/about.txt', 'We are an indie software studio building tools and experiments with impact.\n');
     createFile('/home/guest/contact.txt', 'Email: ctrlaltspace.prod@proton.me\nGitHub: https://github.com/CtrlAltSpace\n');
     createFile('/home/guest/projects/README.md', 'Project directory for software experiments, tools, and release prototypes.\n');
-    createFile('/home/guest/projects/gem/README.md', 'Gem is a Discord AI assistant for brainstorming and support.\n');
-    createFile('/home/guest/projects/attendly/README.md', 'Attendly is a workflow-focused tool for planning and coordination.\n');
+    createFile('/home/guest/projects/finance_manager/README.md', 'A desktop app to help manage your finances.\n');
+    createFile('/home/guest/projects/captcha/README.md', 'Computer Access Protection through Triggered Camera & Human Analysis\n');
+    createFile('/home/guest/projects/desktop_auto_tools/README.md', 'Contains an autotyper, an autoscroller, and an autoclicker.\n');
+    createFile('/home/guest/projects/annoying_site/README.md', 'A silly annoying website.\n');
+    createFile('/home/guest/projects/gem/README.md', "Gem 💎, an AI assistant that's here to help you brainstorm, answer questions, and generally make your Discord experience smoother! 🤖\n");
     createFile('/home/guest/projects/website/README.md', 'This website is a personal portfolio and documentation space.\n');
     createFile('/home/guest/blog/README.md', 'Blog index and notes for experiments, ideas, and launch logs.\n');
-    createFile('/home/guest/docs/todo.txt', 'Ship the portfolio shell\nRefine the interactive mode\nKeep the site polished\n');
 
     return { root, getNode, ensurePath, createFile, createDir, deleteNode, moveNode, ensureParent };
   }
