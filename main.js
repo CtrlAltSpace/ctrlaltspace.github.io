@@ -178,8 +178,11 @@ if (terminalRoot) {
 
     createDir('/home/guest');
     createDir('/home/guest/projects');
+    createDir('/home/guest/projects/finance_manager');
+    createDir('/home/guest/projects/captcha');
+    createDir('/home/guest/projects/desktop_auto_tools');
+    createDir('/home/guest/projects/annoying_site');
     createDir('/home/guest/projects/gem');
-    createDir('/home/guest/projects/attendly');
     createDir('/home/guest/projects/website');
     createDir('/home/guest/blog');
     createDir('/home/guest/docs');
