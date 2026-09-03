@@ -17,7 +17,7 @@ Alt H2
  
 *italic with asterisks* and _italic with underscores_
  
-**bold with asterisks** and __bold with underscores__
+**bold with asterisks** (use asterisks for bold — double underscores are repurposed for underline in this pipeline, see the Platform-Specific section)
  
 ***bold italic*** and **_mixed bold italic_**
  
@@ -250,14 +250,6 @@ $$
  
 ---
  
-## Mentions and Issue References (GitHub-flavored, platform-specific)
- 
-@username (mentions a user on platforms that support it)
- 
-#123 (references issue/PR #123 on platforms that support it)
- 
----
- 
 ## Comments (hidden in rendered output)
  
 [//]: # (This is a comment and won't be visible in rendered markdown)
@@ -266,4 +258,47 @@ $$
  
 ---
  
-*End of the markdown showcase — basically every syntax element you'll run into, from CommonMark core to GitHub Flavored Markdown (GFM) extensions.*
+## Platform-Specific / Custom Extensions
+ 
+These aren't part of CommonMark or GFM — they're extensions specific platforms (or custom parsers, like a blog pipeline) bolt on top.
+ 
+### Subtext (Discord-style)
+ 
+-# This renders as small, muted gray text in Discord.
+-# Handy for footnotes, timestamps, or de-emphasized asides.
+ 
+### Underline (Discord-style)
+ 
+__This text is underlined__ (this pipeline treats double underscores as underline, not bold — heads up if you ever copy content from a standard CommonMark/GFM source, since there it means bold instead).
+ 
+### Callout / Admonition Boxes
+ 
+:::note
+This is a note callout — good for extra context or a side comment that isn't critical to follow the main text.
+:::
+ 
+:::warning
+This is a warning callout — use it to flag something risky, a gotcha, or a common mistake.
+:::
+ 
+:::tip
+This is a tip callout — good for optional advice, shortcuts, or "here's a faster way to do this."
+:::
+ 
+### YouTube Embeds
+ 
+{{youtube: dQw4w9WgXcQ}}
+ 
+A custom parser would detect this pattern and expand it into an `<iframe>` pointing at the YouTube embed URL for that video ID.
+ 
+### Smart Typography
+ 
+Straight quotes "like this" become curly quotes "like this" when smart typography is on.
+ 
+Double hyphens -- become an en-dash, and triple hyphens --- become an em-dash.
+ 
+Apostrophes in contractions like don't or it's get curled automatically too.
+ 
+---
+ 
+*End of the markdown showcase — basically every syntax element you'll run into, from CommonMark core to GitHub Flavored Markdown (GFM) extensions, plus the custom stuff platforms and blog pipelines bolt on top.*

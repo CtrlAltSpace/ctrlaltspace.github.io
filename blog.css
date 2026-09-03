@@ -640,6 +640,11 @@ h3 {
   text-decoration: underline;
 }
 
+.full-post-body u {
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.12em;
+}
+
 .full-post-body blockquote {
   border-left: 3px solid var(--accent);
   padding-left: 1rem;
@@ -680,6 +685,50 @@ h3 {
 .full-post-body .contains-task-list {
   list-style: none;
   padding-left: 0;
+}
+
+.full-post-body .discord-subtext {
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.full-post-body .callout {
+  margin: 1.5rem 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.full-post-body .callout-title {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--text);
+}
+
+.full-post-body .callout-warning {
+  border-left-color: #f5b942;
+  background: rgba(245, 185, 66, 0.1);
+}
+
+.full-post-body .callout-tip {
+  border-left-color: #72d572;
+  background: rgba(114, 213, 114, 0.1);
+}
+
+.full-post-body .callout p {
+  margin: 0.35rem 0 0;
+}
+
+.full-post-body .youtube-embed {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 1.5rem 0;
+  border: 0;
+  border-radius: 8px;
 }
 
 .full-post-body h1,
