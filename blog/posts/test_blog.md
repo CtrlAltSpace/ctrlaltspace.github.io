@@ -302,4 +302,5 @@ Apostrophes in contractions like don't or it's get curled automatically too.
 ---
  
 *End of the markdown showcase — basically every syntax element you'll run into, from CommonMark core to GitHub Flavored Markdown (GFM) extensions, plus the custom stuff platforms and blog pipelines bolt on top.*
+
 -# This test file is made by Claude AI.
