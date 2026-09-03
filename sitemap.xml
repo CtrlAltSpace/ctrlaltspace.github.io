@@ -13,4 +13,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://ctrlaltspace.is-a.dev/blog/?post=a-test-blog-1</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>
