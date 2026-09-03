@@ -5,8 +5,11 @@ on:
     branches:
       - main
     paths:
-      - "posts.json"
-      - "blog/**"
+      - "blog/posts.json"
+      - "blog/posts/**"
+      - "blog/index.html"
+      - "blog.js"
+      - "blog.css"
       - ".github/workflows/sitemap.yml"
   workflow_dispatch:
 
@@ -35,6 +38,7 @@ jobs:
           import re
           import os
           import subprocess
+          from urllib.parse import quote
           from datetime import date, datetime
           from pathlib import Path
           from xml.sax.saxutils import escape
@@ -42,7 +46,7 @@ jobs:
           site_url = os.environ["SITE_URL"].rstrip("/")
           fallback_date = date.today().isoformat()
 
-          posts_path = Path("posts.json")
+          posts_path = Path("blog/posts.json")
           posts = json.loads(posts_path.read_text(encoding="utf-8")) if posts_path.exists() else []
 
           def slugify(title, index):
@@ -93,7 +97,7 @@ jobs:
               },
               {
                   "loc": f"{site_url}/blog/",
-                  "lastmod": git_lastmod("blog/index.html", "posts.json"),
+                  "lastmod": git_lastmod("blog/index.html", "blog/posts.json"),
                   "changefreq": "monthly",
                   "priority": "0.5",
               },
@@ -101,10 +105,13 @@ jobs:
 
           for index, post in enumerate(posts):
               slug = post.get("slug") or slugify(post.get("title"), index)
+              markdown_path = post.get("body") or post.get("file") or post.get("path")
+              if markdown_path:
+                markdown_path = str(Path("blog") / markdown_path)
               urls.append(
                   {
-                      "loc": f"{site_url}/blog/?post={slug}",
-                      "lastmod": post_lastmod(post),
+                      "loc": f"{site_url}/blog/?post={quote(slug, safe='')}",
+                  "lastmod": git_lastmod(markdown_path) if markdown_path else post_lastmod(post),
                       "changefreq": "never",
                       "priority": "0.3",
                   }
