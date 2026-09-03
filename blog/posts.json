@@ -1,0 +1,10 @@
+[
+  {
+    "title": "A TEST BLOG",
+    "date": "September 3, 2026",
+    "readTime": "don't read",
+    "body": "posts/test_blog.md",
+    "preview": "Testing the preview.",
+    "tags": ["test", "blog"]
+  }
+]

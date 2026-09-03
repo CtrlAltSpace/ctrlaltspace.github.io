@@ -1,55 +1,82 @@
-const year = document.getElementById('year');
+const year = document.getElementById("year");
 if (year) {
   year.textContent = new Date().getFullYear();
 }
 
-const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
+const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
 navLinks.forEach((link) => {
-  link.classList.toggle('active', link.dataset.page === 'blog');
+  link.classList.toggle("active", link.dataset.page === "blog");
 });
 
-const revealItems = document.querySelectorAll('.reveal');
+const revealItems = document.querySelectorAll(".reveal");
 const revealObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
+        entry.target.classList.add("is-visible");
         revealObserver.unobserve(entry.target);
       }
     });
   },
   {
     threshold: 0.14,
-  }
+  },
 );
 
 revealItems.forEach((item) => revealObserver.observe(item));
 
-const blogSearch = document.getElementById('blog-search');
-const featuredPostContainer = document.getElementById('featured-post-container');
-const postsList = document.getElementById('posts-list');
-const blogPagination = document.getElementById('blog-pagination');
-const blogTitle = document.getElementById('blog-title');
-const blogHeroMeta = document.getElementById('blog-hero-meta');
-const blogBackButton = document.getElementById('blog-back-button');
+const blogSearch = document.getElementById("blog-search");
+const featuredPostContainer = document.getElementById(
+  "featured-post-container",
+);
+const postsList = document.getElementById("posts-list");
+const blogPagination = document.getElementById("blog-pagination");
+const blogTitle = document.getElementById("blog-title");
+const blogHeroMeta = document.getElementById("blog-hero-meta");
+const blogBackButton = document.getElementById("blog-back-button");
 const postsPerPage = 5;
 let allPosts = [];
 
+const markdownRenderer = window
+  .markdownit({
+    html: true,
+    linkify: true,
+    typographer: true,
+  })
+  .use(window.markdownitFootnote)
+  .use(window.markdownitSub)
+  .use(window.markdownitSup)
+  .use(window.markdownitMark)
+  .use(window.markdownitDeflist)
+  .use(window.markdownitEmoji)
+  .use(window.markdownitTaskLists, { enabled: true });
+
+function renderMarkdown(markdown) {
+  let html = markdownRenderer.render(markdown);
+
+  html = html.replace(/\$\$([\s\S]+?)\$\$/g, (_, expression) =>
+    window.katex.renderToString(expression.trim(), { displayMode: true }),
+  );
+  return html.replace(/\$([^$\n]+?)\$/g, (_, expression) =>
+    window.katex.renderToString(expression.trim()),
+  );
+}
+
 function escapeHtml(value) {
-  return String(value ?? '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 function createSlug(title, index) {
-  const slug = String(title || '')
+  const slug = String(title || "")
     .toLowerCase()
     .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 
   return slug ? `${slug}-${index + 1}` : `post-${index + 1}`;
 }
@@ -59,7 +86,11 @@ function getPostSlug(post, index) {
 }
 
 function getPreview(body, maxLength = 140) {
-  const plainText = String(body || '').replace(/\s+/g, ' ').trim();
+  const plainText = String(body || "")
+    .replace(/```[\s\S]*?```/g, "")
+    .replace(/[#*_>`~\[\]()!-]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 
   if (plainText.length <= maxLength) return plainText;
   return `${plainText.slice(0, maxLength).trim()}...`;
@@ -67,13 +98,13 @@ function getPreview(body, maxLength = 140) {
 
 function getCurrentPage(totalPages) {
   const params = new URLSearchParams(window.location.search);
-  const page = Number.parseInt(params.get('page'), 10);
+  const page = Number.parseInt(params.get("page"), 10);
 
   if (Number.isNaN(page)) return 1;
   return Math.min(Math.max(page, 1), totalPages);
 }
 
-function setBlogHero(title, meta = '', showBackButton = false) {
+function setBlogHero(title, meta = "", showBackButton = false) {
   if (blogTitle) {
     blogTitle.textContent = title;
   }
@@ -92,7 +123,7 @@ function renderPagination(totalPages, currentPage) {
   if (!blogPagination) return;
 
   if (totalPages <= 1) {
-    blogPagination.innerHTML = '';
+    blogPagination.innerHTML = "";
     return;
   }
 
@@ -102,16 +133,16 @@ function renderPagination(totalPages, currentPage) {
 
     return `
       <a
-        class="page-link${isCurrent ? ' active' : ''}"
+        class="page-link${isCurrent ? " active" : ""}"
         href="index.html?page=${page}"
-        ${isCurrent ? 'aria-current="page"' : ''}
+        ${isCurrent ? 'aria-current="page"' : ""}
       >${page}</a>
     `;
-  }).join('');
+  }).join("");
 }
 
 function renderPostList(posts) {
-  setBlogHero('Blog posts.');
+  setBlogHero("Blog posts.");
 
   const totalPages = Math.max(Math.ceil(posts.length / postsPerPage), 1);
   const currentPage = getCurrentPage(totalPages);
@@ -119,7 +150,7 @@ function renderPostList(posts) {
   const visiblePosts = posts.slice(start, start + postsPerPage);
 
   if (featuredPostContainer) {
-    featuredPostContainer.innerHTML = '';
+    featuredPostContainer.innerHTML = "";
   }
 
   postsList.innerHTML = visiblePosts.length
@@ -131,15 +162,15 @@ function renderPostList(posts) {
           return `
             <article class="post-card">
               <a class="post-link" href="index.html?post=${slug}">
-                <p class="post-meta">${escapeHtml(post.date)} &bull; ${escapeHtml(post.time)}</p>
+                <p class="post-meta">${escapeHtml(post.date)} &bull; ${escapeHtml(post.readTime || post.time || "")}</p>
                 <h2>${escapeHtml(post.title)}</h2>
-                <p class="post-preview">${escapeHtml(getPreview(post.body))}</p>
+                <p class="post-preview">${escapeHtml(post.preview || getPreview(post.body))}</p>
                 <span class="read-more">Read full post</span>
               </a>
             </article>
           `;
         })
-        .join('')
+        .join("")
     : '<p class="contact-note">No posts found.</p>';
 
   renderPagination(totalPages, currentPage);
@@ -147,8 +178,10 @@ function renderPostList(posts) {
 
 function renderFullPost(posts) {
   const params = new URLSearchParams(window.location.search);
-  const requestedSlug = params.get('post');
-  const post = posts.find((item, index) => getPostSlug(item, index) === requestedSlug);
+  const requestedSlug = params.get("post");
+  const post = posts.find(
+    (item, index) => getPostSlug(item, index) === requestedSlug,
+  );
 
   if (!requestedSlug || !post) {
     renderPostList(posts);
@@ -156,47 +189,68 @@ function renderFullPost(posts) {
   }
 
   if (featuredPostContainer) {
-    featuredPostContainer.innerHTML = '';
+    featuredPostContainer.innerHTML = "";
   }
 
   if (blogPagination) {
-    blogPagination.innerHTML = '';
+    blogPagination.innerHTML = "";
   }
 
   postsList.innerHTML = `
     <article class="full-post">
-      <div class="full-post-body">${escapeHtml(post.body).replace(/\n/g, '<br>')}</div>
+      <div class="full-post-body">${renderMarkdown(post.body)}</div>
     </article>
   `;
 
-  setBlogHero(post.title, `${post.date || ''} - ${post.time || ''}`, true);
+  setBlogHero(
+    post.title,
+    `${post.date || ""} - ${post.readTime || post.time || ""}`,
+    true,
+  );
 }
 
 if (blogBackButton) {
-  blogBackButton.addEventListener('click', () => {
-    window.location.href = 'index.html';
+  blogBackButton.addEventListener("click", () => {
+    window.location.href = "index.html";
   });
 }
 
 function renderPosts() {
   if (!featuredPostContainer || !postsList) return;
 
-  fetch('../posts.json')
+  fetch("posts.json")
     .then((response) => response.json())
     .then((posts) => {
-      allPosts = Array.isArray(posts)
-        ? posts.map((post, index) => ({
-            ...post,
-            slug: getPostSlug(post, index),
-          }))
-        : [];
+      if (!Array.isArray(posts)) return [];
+
+      return Promise.all(
+        posts.map((post) => {
+          const markdownPath = post.body || post.file || post.path;
+          if (!markdownPath) return { ...post, body: "" };
+
+          return fetch(markdownPath)
+            .then((response) => {
+              if (!response.ok)
+                throw new Error(`Unable to load ${markdownPath}`);
+              return response.text();
+            })
+            .then((body) => ({ ...post, body }));
+        }),
+      );
+    })
+    .then((posts) => {
+      allPosts = posts.map((post, index) => ({
+        ...post,
+        slug: getPostSlug(post, index),
+      }));
       renderFullPost(allPosts);
     })
     .catch(() => {
-      featuredPostContainer.innerHTML = '<p class="contact-note">Unable to load posts.</p>';
-      postsList.innerHTML = '';
+      featuredPostContainer.innerHTML =
+        '<p class="contact-note">Unable to load posts.</p>';
+      postsList.innerHTML = "";
       if (blogPagination) {
-        blogPagination.innerHTML = '';
+        blogPagination.innerHTML = "";
       }
     });
 }
@@ -205,7 +259,8 @@ function updateSearchVisibility() {
   if (!blogSearch) return;
   const query = blogSearch.value.toLowerCase();
   const filteredPosts = allPosts.filter((post) => {
-    const searchableText = `${post.title || ''} ${post.date || ''} ${post.time || ''} ${post.body || ''}`.toLowerCase();
+    const searchableText =
+      `${post.title || ""} ${post.date || ""} ${post.time || ""} ${post.body || ""}`.toLowerCase();
     return searchableText.includes(query);
   });
 
@@ -213,7 +268,7 @@ function updateSearchVisibility() {
 }
 
 if (blogSearch) {
-  blogSearch.addEventListener('input', updateSearchVisibility);
+  blogSearch.addEventListener("input", updateSearchVisibility);
 }
 
 renderPosts();
