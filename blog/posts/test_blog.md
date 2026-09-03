@@ -87,15 +87,15 @@ Term 2
  
 ## Links
  
-[Inline link](https://www.anthropic.com)
+[Inline link](https://www.google.com)
  
-[Link with title](https://www.anthropic.com "Anthropic's homepage")
+[Link with title](https://www.google.com "Google's homepage")
  
 [Reference-style link][ref1]
  
-[ref1]: https://www.anthropic.com "Reference link title"
+[ref1]: https://www.google.com "Reference link title"
  
-<https://www.anthropic.com> (bare autolink)
+<https://www.google.com> (bare autolink)
  
 <hello@example.com> (autolinked email)
  
@@ -111,7 +111,7 @@ Term 2
  
 ![Alt text with title](https://placekitten.com/300/200 "A kitten, obviously")
  
-[![Clickable image](https://placekitten.com/100/100)](https://www.anthropic.com)
+[![Clickable image](https://placekitten.com/100/100)](https://www.google.com)
  
 Reference-style image:
  
