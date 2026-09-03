@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,15 +8,18 @@
       content="Blog page with thoughtful notes on design, development, and building better digital experiences."
     />
     <title>Blog | CtrlAltSpace Productions</title>
-    <link rel="icon" type="image/png" href="../space_edit.png">
+    <link rel="icon" type="image/png" href="../space_edit.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" />
-    <link rel="stylesheet" href="/styles/blog.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css"
+    />
+    <link rel="stylesheet" href="../styles/blog.css" />
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -37,7 +40,12 @@
     <main id="main-content">
       <section class="section blog-hero">
         <div class="container reveal">
-          <button class="back-button blog-back-button" id="blog-back-button" type="button" hidden>
+          <button
+            class="back-button blog-back-button"
+            id="blog-back-button"
+            type="button"
+            hidden
+          >
             Back to all posts
           </button>
           <p class="eyebrow">Blog</p>
@@ -52,7 +60,11 @@
           <div class="blog-main">
             <div id="featured-post-container"></div>
             <div class="posts-list" id="posts-list"></div>
-            <nav class="blog-pagination" id="blog-pagination" aria-label="Blog pages"></nav>
+            <nav
+              class="blog-pagination"
+              id="blog-pagination"
+              aria-label="Blog pages"
+            ></nav>
           </div>
         </div>
       </section>
@@ -62,8 +74,15 @@
       <div class="container footer-content">
         <p>&copy; <span id="year"></span> CtrlAltSpace. All rights reserved.</p>
         <div class="footer-links">
-          <a href="https://github.com/CtrlAltSpace"><span style="text-decoration: underline;">GitHub</span></a>
-          <a href="https://discord.com/users/1399691329671266304" target="_blank" rel="noopener noreferrer"><span style="text-decoration: underline;">Discord</span></a>
+          <a href="https://github.com/CtrlAltSpace"
+            ><span style="text-decoration: underline">GitHub</span></a
+          >
+          <a
+            href="https://discord.com/users/1399691329671266304"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><span style="text-decoration: underline">Discord</span></a
+          >
         </div>
       </div>
     </footer>
@@ -77,6 +96,6 @@
     <script src="https://cdn.jsdelivr.net/npm/markdown-it-emoji@3/dist/markdown-it-emoji.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/markdown-it-task-lists@2/dist/markdown-it-task-lists.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
-    <script src="/scripts/blog.js"></script>
+    <script src="../scripts/blog.js"></script>
   </body>
 </html>

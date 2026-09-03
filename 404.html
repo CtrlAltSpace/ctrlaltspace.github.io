@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,7 +8,7 @@
       content="Page not found on CtrlAltSpace Productions."
     />
     <title>404 | CtrlAltSpace Productions</title>
-    <link rel="icon" type="image/png" href="./space.png" />
+    <link rel="icon" type="image/png" href="/space.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -23,7 +23,12 @@
     <header class="site-header">
       <nav class="nav container" aria-label="Primary navigation">
         <a class="brand" href="/">CtrlAltSpace Productions</a>
-        <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-label="Open navigation"
+          aria-expanded="false"
+        >
           <span></span>
           <span></span>
           <span></span>
@@ -46,7 +51,10 @@
           <p class="eyebrow">Page not found.</p>
           <h1>404</h1>
           <p class="hero-text">
-            The universe is so wide, yet so small.<br>There might be aliens out there, but there's no <code id="missing-page-name">page here</code>.<br>Perhaps it does not exist or has been moved.
+            The universe is so wide, yet so small.<br />There might be aliens
+            out there, but there's no
+            <code id="missing-page-name">page here</code>.<br />Perhaps it does
+            not exist or has been moved.
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="/">Go Home</a>
@@ -61,11 +69,11 @@
       </div>
     </footer>
 
-    <script src="main.js"></script>
+    <script src="/scripts/main.js"></script>
     <script>
-      const missingPageName = document.getElementById('missing-page-name');
+      const missingPageName = document.getElementById("missing-page-name");
       if (missingPageName) {
-        missingPageName.textContent = window.location.pathname || 'page here';
+        missingPageName.textContent = window.location.pathname || "page here";
       }
     </script>
   </body>
