@@ -258,9 +258,9 @@ $$
  
 ---
  
-## Platform-Specific / Custom Extensions
+## Custom syntax
  
-These aren't part of CommonMark or GFM — they're extensions specific platforms (or custom parsers, like a blog pipeline) bolt on top.
+These aren't part of CommonMark or GFM — they're custom made.
  
 ### Subtext (Discord-style)
  
