@@ -1437,6 +1437,8 @@ if (terminalRoot) {
   appendLog('[SYS] Portfolio initialized.', 'system');
   appendLog('[SYS] Loading page context...', 'system');
   appendLog('[OK] Shell ready.', 'ok');
+  appendLog('[ERR] CtrlAltSpace Productions has rebranded to CurioSpace Labs.');
+  appendLog('[SYS] Page saved as history, all functionalities kept.', 'system');
   appendLog(`guest@ctrlaltspace:~$`, 'command');
 
   const sectionNames = {
