@@ -186,7 +186,7 @@ if (terminalRoot) {
     createDir('/home/guest/projects/website');
     createDir('/home/guest/blog');
     createDir('/home/guest/docs');
-    createFile('/home/guest/README.md', 'CtrlAltSpace Productions creates desktop applications, web projects, and silly stuff driven by creativity and curiosity.\n');
+    createFile('/home/guest/README.md', 'CtrlAltSpace creates desktop applications, web projects, and silly stuff driven by creativity and curiosity.\n');
     createFile('/home/guest/about.txt', 'We are an indie software studio building tools and experiments with impact.\n');
     createFile('/home/guest/contact.txt', 'Email: ctrlaltspace.prod@proton.me\nGitHub: https://github.com/CtrlAltSpace\n');
     createFile('/home/guest/projects/README.md', 'Project directory for software experiments, tools, and release prototypes.\n');
@@ -1437,8 +1437,6 @@ if (terminalRoot) {
   appendLog('[SYS] Portfolio initialized.', 'system');
   appendLog('[SYS] Loading page context...', 'system');
   appendLog('[OK] Shell ready.', 'ok');
-  appendLog('[ERR] CtrlAltSpace Productions has rebranded to CurioSpace Labs.');
-  appendLog('[SYS] Page saved as history, all functionalities kept.', 'system');
   appendLog(`guest@ctrlaltspace:~$`, 'command');
 
   const sectionNames = {
